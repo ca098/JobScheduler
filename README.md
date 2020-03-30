@@ -6,7 +6,7 @@ each job to a resource at each every given stage.
 Output can be selected as either in a .txt file or a .csv file. With the files being saved in the directory of the program
 under sample/Output.
 
-#Build
+# Build
 
 There is currently an issue with IntelliJ (the IDE this was created on) and bundling JavaFX programs with Ant in any Java
 version that isn't Java 8. This was created in Java 11.
