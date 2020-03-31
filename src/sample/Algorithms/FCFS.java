@@ -27,7 +27,7 @@ public class FCFS {
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
         String formattedFileType = fileType.replaceAll("\\s+","");
-        String fName = String.format("src/sample/Output/FCFS%dJobs%s", data.size(), formattedFileType);
+        String fName = String.format("src/sample/Output/FCFS_%dJobs%s", data.size(), formattedFileType);
 
         File file = new File(fName);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(file))) {
