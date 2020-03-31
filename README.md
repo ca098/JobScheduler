@@ -1,10 +1,13 @@
 # JobScheduler
 
 This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
-each job to a resource at each every given stage.
+each job to a resource at every given stage.
 
-The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program
-under __sample/Output/__
+The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
+
+```
+sample/Output/
+```
 
 # Build
 
@@ -18,12 +21,15 @@ import this project.
 
 ## View
 
-Below is the view of the running program, along with the output of schedule saved to a .txt output.
+Below is a screenshot of the running program, along with the output of schedule saved as a __.txt__ output.
+
+It is worth noting that some of the files that are generated can be in excess of > 25MB each, in which case the delete
+button was implemented so that the files can be removed once you're finished creating the schedule.
 
 ### Program Image
 ![alt text][programImage] 
 
-### Schedule Output as a .txt File
+### Scheduled Output as a .txt File
 ![alt text][txtImage]
 
 
