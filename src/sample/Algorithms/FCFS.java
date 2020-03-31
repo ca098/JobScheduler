@@ -26,7 +26,8 @@ public class FCFS {
         long startTime = System.nanoTime();
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
-        String fName = String.format("src/sample/Output/FCFS%dJobs%s", data.size(), fileType);
+        String formattedFileType = fileType.replaceAll("\\s+","");
+        String fName = String.format("src/sample/Output/FCFS%dJobs%s", data.size(), formattedFileType);
 
         File file = new File(fName);
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(file))) {
