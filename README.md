@@ -4,7 +4,7 @@ This is a JavaFX program which generates a set of jobs from a psuedorandom numbe
 each job to a resource at each every given stage.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program
-under sample/Output.
+under __sample/Output/__
 
 # Build
 
