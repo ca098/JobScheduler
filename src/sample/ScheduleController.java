@@ -14,14 +14,21 @@ import sample.Algorithms.TaskReader;
 import sample.DataGenerator.Generator;
 
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.TextArea;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class ScheduleController {
 
@@ -41,9 +48,6 @@ public class ScheduleController {
     private Label timeTakenLbl;
 
     @FXML
-    private Label locationLabel;
-
-    @FXML
     private ProgressBar progressBar;
 
     @FXML
@@ -54,6 +58,14 @@ public class ScheduleController {
 
     @FXML
     private Rectangle progressRectangle;
+
+    @FXML
+    private TextArea filesTextArea;
+
+    @FXML
+    private Button deleteButton;
+
+
 
 
     public void initialize() {
@@ -104,8 +116,12 @@ public class ScheduleController {
             System.out.println("File not found: " + e.toString());
         }
 
-        locationLabel.setText("Schedule was saved at " + visibleFpath);
-        locationLabel.setVisible(true);
+        final File folder = new File("src/sample/Output");
+        listFiles(folder);
+
+
+
+        deleteButton.setDisable(false);
 
     }
 
@@ -133,15 +149,58 @@ public class ScheduleController {
 
     public void newTask() {
         progressBar.setProgress(0);
+        progressIndicator.setProgress(0);
+        resetUI();
+    }
+
+    private void resetUI() {
         progressIndicator.setVisible(false);
         progressBar.setVisible(false);
-        progressIndicator.setProgress(0);
-        locationLabel.setText("");
+        progressRectangle.setVisible(false);
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
-        progressRectangle.setVisible(false);
-
     }
+
+
+
+    public void deleteFiles() {
+        final File folder = new File("src/sample/Output");
+        String[]entries = folder.list();
+        for(String s: entries){
+            File currentFile = new File(folder.getPath(),s);
+            currentFile.delete();
+        }
+
+        filesTextArea.setText("");
+        deleteButton.setDisable(true);
+        resetUI();
+    }
+
+
+
+    public void listFiles(final File folder) {
+        String files = "";
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFiles(fileEntry);
+            } else {
+                files += fileEntry.getName() + "\n";
+                filesTextArea.setText(files);
+            }
+        }
+    }
+
+
+//    public void listFiles() {
+//        try (Stream<Path> paths = Files.walk(Paths.get("src/sample/Output"))) {
+//            paths
+//                    .filter(Files::isRegularFile)
+//                    .forEach(filesTextArea::setText);
+//        }
+//        catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+//    }
 
 
     public void setClock(Label timeLabel) {
@@ -154,9 +213,7 @@ public class ScheduleController {
                     e.printStackTrace();
                 }
                 final String time = simpleDateFormat.format(new Date());
-                Platform.runLater(() -> {
-                    timeLabel.setText(time);
-                });
+                Platform.runLater(() -> timeLabel.setText(time));
             }
         });
         timerThread.start();//start the thread and its ok

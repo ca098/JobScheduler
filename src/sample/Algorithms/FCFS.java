@@ -93,7 +93,7 @@ public class FCFS {
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;
-        timeTaken.setText(String.format("Scheduler completed in: %dms", duration));
+        timeTaken.setText(String.format("Scheduler completed in: %dms ", duration));
 
         return assignedResources;
     }
