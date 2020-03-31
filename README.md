@@ -4,7 +4,6 @@ This is a JavaFX program which generates a set of jobs from a psuedorandom numbe
 each job to a resource at every given stage.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
-
 ```
 src/sample/Output/
 ```
@@ -15,7 +14,11 @@ There is currently an issue with IntelliJ (the IDE this was created on) and bund
 version that isn't Java 8. This was created in Java 11.
 
 Therefore, the current way to build this program is to either create a virtual environment and bundle all of the imports
-into it and then run sample/Main.java. Or, create a new Project into an IDE of your choosing such as IntelliJ or Netbeans and
+into it and then run:
+```
+sample/Main.java
+```
+Or, create a new Project into an IDE of your choosing such as IntelliJ or Netbeans and
 import this project.
 
 
