@@ -16,7 +16,7 @@ version that isn't Java 8. This was created in Java 11.
 Therefore, the current way to build this program is to either create a virtual environment and bundle all of the imports
 into it and then run:
 ```
-sample/Main.java
+src/sample/Main.java
 ```
 Or, create a new Project into an IDE of your choosing such as IntelliJ or Netbeans and
 import this project.
