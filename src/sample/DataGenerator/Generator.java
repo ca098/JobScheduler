@@ -1,15 +1,10 @@
 package sample.DataGenerator;
-
-import sample.ScheduleController;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Generator {
@@ -22,7 +17,7 @@ public class Generator {
             try {
                 populateFile(input);
                 String filePath = "src/sample/Output";
-                System.out.printf("%d jobs successfully created in '%s/%s'", input, System.getProperty("user.dir"), filePath);
+                System.out.printf("\n%d jobs successfully created in '%s/%s'", input, System.getProperty("user.dir"), filePath);
             } catch (Exception e) {
                 System.out.println("Job creation unsuccessful: " + e.toString());
             }

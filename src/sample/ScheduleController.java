@@ -21,14 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class ScheduleController {
 
@@ -180,7 +176,7 @@ public class ScheduleController {
 
     public void listFiles(final File folder) {
         String files = "";
-        for (final File fileEntry : folder.listFiles()) {
+        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             if (fileEntry.isDirectory()) {
                 listFiles(fileEntry);
             } else {
