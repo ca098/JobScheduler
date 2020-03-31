@@ -6,7 +6,7 @@ each job to a resource at every given stage.
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
 
 ```
-sample/Output/
+src/sample/Output/
 ```
 
 # Build
