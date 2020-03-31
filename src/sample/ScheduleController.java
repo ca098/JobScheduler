@@ -52,8 +52,6 @@ public class ScheduleController {
     @FXML
     private Rectangle timeRectangle;
 
-    @FXML
-    private Rectangle progressRectangle;
 
     @FXML
     private TextArea filesTextArea;
@@ -91,7 +89,6 @@ public class ScheduleController {
         progressBar.setVisible(true);
         progressIndicator.setVisible(true);
         timeRectangle.setVisible(true);
-        progressRectangle.setVisible(true);
 
         if (selectedNumber == null) {
             selectedNumber = 0;
@@ -152,7 +149,6 @@ public class ScheduleController {
     private void resetUI() {
         progressIndicator.setVisible(false);
         progressBar.setVisible(false);
-        progressRectangle.setVisible(false);
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
     }
@@ -212,6 +208,6 @@ public class ScheduleController {
                 Platform.runLater(() -> timeLabel.setText(time));
             }
         });
-        timerThread.start();//start the thread and its ok
+        timerThread.start();
     }
 }
