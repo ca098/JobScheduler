@@ -45,8 +45,7 @@ public class Resource {
         for (Task existingTasks : tasksOnResource) {
             if (newTaskFinish < existingTasks.getArrivalTime() + existingTasks.getProcessingTime()) {
                 alone = 0;
-            }
-            else {
+            } else {
                 alone = existingTasks.getArrivalTime() + existingTasks.getProcessingTime() - newTaskFinish;
             }
         }
@@ -93,9 +92,9 @@ public class Resource {
 
     // Refresh resource every second, if the task runs its time it will be removed from the
     // active tasks on this resource.
-    public void updateResource(int currentTime){
-        for (int i = 0; i < tasksOnResource.size(); i++){
-            if ((tasksOnResource.get(i).getArrivalTime() + tasksOnResource.get(i).getProcessingTime()) <= currentTime){
+    public void updateResource(int currentTime) {
+        for (int i = 0; i < tasksOnResource.size(); i++) {
+            if ((tasksOnResource.get(i).getArrivalTime() + tasksOnResource.get(i).getProcessingTime()) <= currentTime) {
                 tasksOnResource.remove(i);
                 updateUtilisation();
             }
@@ -112,7 +111,9 @@ public class Resource {
 
     }
 
-    public ArrayList<Task> getTasksOnResource() {return tasksOnResource;}
+    public ArrayList<Task> getTasksOnResource() {
+        return tasksOnResource;
+    }
 
     public void printTasksOnResource() {
         for (Task t : tasksOnResource) {

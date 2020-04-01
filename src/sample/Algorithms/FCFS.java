@@ -25,7 +25,7 @@ public class FCFS {
         int total = 0;
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
-        String formattedFileType = fileType.replaceAll("\\s+","");
+        String formattedFileType = fileType.replaceAll("\\s+", "");
         String fName = String.format("src/sample/Output/FCFS_%dJobs%s", data.size(), formattedFileType);
 
         File file = new File(fName);
@@ -81,12 +81,10 @@ public class FCFS {
                     double size = ((double) task.getTaskNo()) / data.size();
 
                     try {
-                        double value = round(size,2);
+                        double value = round(size, 2);
                         bar.setProgress(value);
                         indicator.setProgress(value);
-                }
-
-                    catch(Exception e) {
+                    } catch (Exception e) {
                         System.out.println(e.toString());
                     }
                 }
@@ -117,13 +115,15 @@ public class FCFS {
     }
 
     public static int populateFile(PrintWriter pw, int taskArrivalTime, ArrayList<Resource> assignedResources,
-                                   int pMin, int pMax){
+                                   int pMin, int pMax) {
 
         pw.println("\n******** Resource state at Arrival Time: " + taskArrivalTime + " ********\n");
         int total = 0;
         for (Resource r : assignedResources) {
+            int currentPower = 0;
+            currentPower += cost(pMin, pMax, r.getCurrentUtilisation());
             total += cost(pMin, pMax, r.getCurrentUtilisation());
-            pw.println("Resource: " + r.getResourceID() + ", Utilisation: " + r.getCurrentUtilisation() + "%");
+            pw.println("Resource: " + r.getResourceID() + ", Utilisation: " + r.getCurrentUtilisation() + "%" + ", Watts: " + currentPower);
             String formattedString = r.getTasksOnResource().toString()
                     .replace(",", "")
                     .replace("[", "")

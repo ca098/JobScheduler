@@ -4,17 +4,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.shape.Rectangle;
 import sample.Algorithms.FCFS;
 import sample.Algorithms.Resource;
 import sample.Algorithms.Task;
 import sample.Algorithms.TaskReader;
 import sample.DataGenerator.Generator;
-
-import javafx.scene.shape.Rectangle;
-import javafx.scene.control.TextArea;
 
 import java.awt.*;
 import java.io.File;
@@ -71,7 +70,7 @@ public class ScheduleController {
     public void initialize() {
 
         ArrayList<Integer> jobNumber = new ArrayList<>();
-        for (int j = 5000; j<=50000; j = j+5000) {
+        for (int j = 5000; j <= 50000; j = j + 5000) {
             jobNumber.add(j);
         }
 
@@ -139,20 +138,20 @@ public class ScheduleController {
         deleteButton.setDisable(false);
 
         long overallAmount = FCFSWattage(FCFS.wattageSchedule);
-        energyLabel.setText(String.format("     Scheduler Energy\nConsumption: %d(kW)", overallAmount/1000));
+        energyLabel.setText(String.format("     Scheduler Energy\nConsumption: %d(kW)", overallAmount / 1000));
 
 
     }
 
     public long FCFSWattage(ArrayList<String> wattageSchedule) {
         long amount = 0;
-        for(int i = 0; i < wattageSchedule.size()-1; i++) {
+        for (int i = 0; i < wattageSchedule.size() - 1; i++) {
 
             String[] parts = wattageSchedule.get(i).split("=");
             int power = Integer.parseInt(parts[0]);
             int currentTime = Integer.parseInt(parts[1]);
 
-            String[] nextParts = wattageSchedule.get(i+1).split("=");
+            String[] nextParts = wattageSchedule.get(i + 1).split("=");
             int nextTime = Integer.parseInt(nextParts[1]);
 
             amount += power * (nextTime - currentTime);
@@ -179,7 +178,7 @@ public class ScheduleController {
         if (pMinCombo.getValue() != null)
             pMaxCombo.setValue(pMinCombo.getValue() + 10);
         if (jobCombo.getValue() != null && fileChoiceCombo.getValue() != null
-        && pMinCombo.getValue() != null){
+                && pMinCombo.getValue() != null) {
             submitButton.setDisable(false);
         }
     }
@@ -201,9 +200,9 @@ public class ScheduleController {
 
     public void deleteFiles() {
         final File folder = new File("src/sample/Output");
-        String[]entries = folder.list();
-        for(String s: entries){
-            File currentFile = new File(folder.getPath(),s);
+        String[] entries = folder.list();
+        for (String s : entries) {
+            File currentFile = new File(folder.getPath(), s);
             currentFile.delete();
         }
 
@@ -231,7 +230,7 @@ public class ScheduleController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM HH:mm");
             while (true) {
                 try {
-                    Thread.sleep(1000); //1 second
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
