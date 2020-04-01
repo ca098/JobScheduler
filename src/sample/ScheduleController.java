@@ -32,6 +32,12 @@ public class ScheduleController {
     private ComboBox<Integer> jobCombo;
 
     @FXML
+    private ComboBox<Integer> pMinCombo;
+
+    @FXML
+    private ComboBox<Integer> pMaxCombo;
+
+    @FXML
     private ComboBox<String> fileChoiceCombo;
 
     @FXML
@@ -44,6 +50,9 @@ public class ScheduleController {
     private Label timeTakenLbl;
 
     @FXML
+    private Label energyLabel;
+
+    @FXML
     private ProgressBar progressBar;
 
     @FXML
@@ -52,14 +61,11 @@ public class ScheduleController {
     @FXML
     private Rectangle timeRectangle;
 
-
     @FXML
     private TextArea filesTextArea;
 
     @FXML
     private Button deleteButton;
-
-
 
 
     public void initialize() {
@@ -69,15 +75,31 @@ public class ScheduleController {
             jobNumber.add(j);
         }
 
+        ArrayList<Integer> pMinValue = new ArrayList<>();
+        ArrayList<Integer> pMaxValue = new ArrayList<>();
+
+        for (int i = 1; i < 10; i++) {
+            pMinValue.add(i * 10);
+            pMaxValue.add(i * 10);
+        }
+
+        pMaxValue.add(100);
+
         ArrayList<String> fileChoices = new ArrayList<>();
         fileChoices.add(".txt ");
         fileChoices.add(".csv ");
 
-        ObservableList<Integer> pMinMaxValues = FXCollections.observableArrayList(jobNumber);
+        ObservableList<Integer> pMinVisValue = FXCollections.observableArrayList(pMinValue);
+        ObservableList<Integer> pMaxVisValue = FXCollections.observableArrayList(pMaxValue);
+        ObservableList<Integer> jobAmount = FXCollections.observableArrayList(jobNumber);
         ObservableList<String> fileChoicesVisible = FXCollections.observableArrayList(fileChoices);
-        jobCombo.setItems(pMinMaxValues);
-        fileChoiceCombo.setItems(fileChoicesVisible);
 
+        pMinCombo.setItems(pMinVisValue);
+        pMaxCombo.setItems(pMaxVisValue);
+
+
+        jobCombo.setItems(jobAmount);
+        fileChoiceCombo.setItems(fileChoicesVisible);
 
         setClock(timeLabel);
     }
@@ -98,12 +120,14 @@ public class ScheduleController {
 
         String fPath = String.format("src/sample/Output/%dJobs.txt", selectedNumber);
 
-        String visibleFpath = String.format("src/sample/Output/%dJobs%s", selectedNumber, fileType);
-
         try {
 
             ArrayList<Task> tasks = TaskReader.readTasksFromFile(fPath);
-            ArrayList<Resource> fcfsAlgorithm = FCFS.Algorithm(tasks, progressBar, progressIndicator, timeTakenLbl, fileType);
+            int pMin = pMinCombo.getValue();
+            int pMax = pMaxCombo.getValue();
+
+            ArrayList<Resource> fcfsAlgorithm = FCFS.Algorithm(tasks, progressBar, progressIndicator,
+                    timeTakenLbl, fileType, pMin, pMax);
 
         } catch (Exception e) {
             System.out.println("File not found: " + e.toString());
@@ -112,10 +136,28 @@ public class ScheduleController {
         final File folder = new File("src/sample/Output");
         listFiles(folder);
 
-
-
         deleteButton.setDisable(false);
 
+        long overallAmount = FCFSWattage(FCFS.wattageSchedule);
+        energyLabel.setText(String.format("     Scheduler Energy\nConsumption: %d(kW)", overallAmount/1000));
+
+
+    }
+
+    public long FCFSWattage(ArrayList<String> wattageSchedule) {
+        long amount = 0;
+        for(int i = 0; i < wattageSchedule.size()-1; i++) {
+
+            String[] parts = wattageSchedule.get(i).split("=");
+            int power = Integer.parseInt(parts[0]);
+            int currentTime = Integer.parseInt(parts[1]);
+
+            String[] nextParts = wattageSchedule.get(i+1).split("=");
+            int nextTime = Integer.parseInt(nextParts[1]);
+
+            amount += power * (nextTime - currentTime);
+        }
+        return amount;
     }
 
     public void gitReadMe() {
@@ -134,10 +176,12 @@ public class ScheduleController {
 
 
     public void activateButton() {
-        if (jobCombo.getValue() != null && fileChoiceCombo.getValue() != null){
+        if (pMinCombo.getValue() != null)
+            pMaxCombo.setValue(pMinCombo.getValue() + 10);
+        if (jobCombo.getValue() != null && fileChoiceCombo.getValue() != null
+        && pMinCombo.getValue() != null){
             submitButton.setDisable(false);
         }
-
     }
 
     public void newTask() {
@@ -151,8 +195,8 @@ public class ScheduleController {
         progressBar.setVisible(false);
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
+        energyLabel.setText("");
     }
-
 
 
     public void deleteFiles() {
@@ -169,7 +213,6 @@ public class ScheduleController {
     }
 
 
-
     public void listFiles(final File folder) {
         String files = "";
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
@@ -181,18 +224,6 @@ public class ScheduleController {
             }
         }
     }
-
-
-//    public void listFiles() {
-//        try (Stream<Path> paths = Files.walk(Paths.get("src/sample/Output"))) {
-//            paths
-//                    .filter(Files::isRegularFile)
-//                    .forEach(filesTextArea::setText);
-//        }
-//        catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
-//    }
 
 
     public void setClock(Label timeLabel) {

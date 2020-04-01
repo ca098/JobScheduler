@@ -1,12 +1,8 @@
 package sample.Algorithms;
 
-import com.sun.security.auth.NTSid;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
-import sample.DataGenerator.Data;
-import sample.ScheduleController;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,15 +11,18 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class FCFS {
 
+    public static ArrayList<String> wattageSchedule = new ArrayList<>();
+
     public static ArrayList<Resource> Algorithm(ArrayList<Task> data, ProgressBar bar,
                                                 ProgressIndicator indicator, Label timeTaken,
-                                                String fileType) throws IOException {
+                                                String fileType, int pMin, int pMax) throws IOException {
 
         long startTime = System.nanoTime();
+
+        int total = 0;
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
         String formattedFileType = fileType.replaceAll("\\s+","");
@@ -74,7 +73,9 @@ public class FCFS {
 //                }
 
 
-                populateFile(pw, taskArrivalTime, assignedResources);
+                total = populateFile(pw, taskArrivalTime, assignedResources, pMin, pMax);
+
+                wattageSchedule.add(total + "=" + taskArrivalTime);
 
                 if (task.getTaskNo() > 1) {
                     double size = ((double) task.getTaskNo()) / data.size();
@@ -107,9 +108,21 @@ public class FCFS {
         return bd.doubleValue();
     }
 
-    public static void populateFile(PrintWriter pw, int taskArrivalTime, ArrayList<Resource> assignedResources){
+    public static int cost(int pMin, int pMax, int utilisation) {
+        if (utilisation == 0) {
+            return pMin;
+        } else {
+            return ((pMax - pMin) * utilisation / 100 + pMin) * 10;
+        }
+    }
+
+    public static int populateFile(PrintWriter pw, int taskArrivalTime, ArrayList<Resource> assignedResources,
+                                   int pMin, int pMax){
+
         pw.println("\n******** Resource state at Arrival Time: " + taskArrivalTime + " ********\n");
+        int total = 0;
         for (Resource r : assignedResources) {
+            total += cost(pMin, pMax, r.getCurrentUtilisation());
             pw.println("Resource: " + r.getResourceID() + ", Utilisation: " + r.getCurrentUtilisation() + "%");
             String formattedString = r.getTasksOnResource().toString()
                     .replace(",", "")
@@ -119,5 +132,6 @@ public class FCFS {
             pw.println(formattedString);
             pw.println("--------------------");
         }
+        return total;
     }
 }
