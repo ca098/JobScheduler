@@ -1,7 +1,7 @@
 # JobScheduler
 
 This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
-each job to a resource at every given stage.
+each job to a resource at every given stage and outputs the cenergy function of the given schedule via a given pMin and pMax value.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
 ```
@@ -14,7 +14,7 @@ There is currently an issue with IntelliJ (the IDE this was created on) and bund
 version that isn't Java 8. This was created in Java 11.
 
 Issue Details:
-[JetBrains Ticket 200721](https://youtrack.jetbrains.com/issue/IDEA-200721?_ga=2.224905754.1868922875.1585741664-751629145.1585393092)
+[[JetBrains Ticket 200721]](https://youtrack.jetbrains.com/issue/IDEA-200721?_ga=2.224905754.1868922875.1585741664-751629145.1585393092)
 
 Therefore, the current way to build this program is to either create a virtual environment and bundle all of the imports
 into it and then run:
