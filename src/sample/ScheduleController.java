@@ -61,6 +61,9 @@ public class ScheduleController {
     private Rectangle timeRectangle;
 
     @FXML
+    private Rectangle energyRectangle;
+
+    @FXML
     private TextArea filesTextArea;
 
     @FXML
@@ -138,6 +141,7 @@ public class ScheduleController {
         deleteButton.setDisable(false);
 
         long overallAmount = FCFSWattage(FCFS.wattageSchedule);
+        energyRectangle.setVisible(true);
         energyLabel.setText(String.format("     Scheduler Energy\nConsumption: %d(kW)", overallAmount / 1000));
 
 
@@ -195,6 +199,7 @@ public class ScheduleController {
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
         energyLabel.setText("");
+        energyRectangle.setVisible(false);
     }
 
 
