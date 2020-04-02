@@ -145,15 +145,12 @@ public class ScheduleController {
         long overallAmount = FCFSWattage(FCFS.wattageSchedule);
         energyRectangle.setVisible(true);
 
-        double averageEnergy = (double) overallAmount  / totalTime;
+        double averageEnergy = (double) overallAmount / totalTime;
 
+        energyLabel.setText(String.format("        Average Energy\n Consumption: %.2f W\n\n" +
+                "    Total Consumption:\n            %d (kW)", averageEnergy, overallAmount / 1000));
 
-//        energyLabel.setText(Integer.toString(totalTime));
-
-        energyLabel.setText(String.format("      Average Energy\n Consumption: %.2f W\n\n" +
-                "    Total Consumption:\n            %d (kW)", averageEnergy, overallAmount/1000));
-
-
+        FCFS.wattageSchedule.clear();
     }
 
 
@@ -219,7 +216,7 @@ public class ScheduleController {
         String[] entries = folder.list();
         for (String s : entries) {
             File currentFile = new File(folder.getPath(), s);
-            currentFile.delete();
+            boolean isDeleted = currentFile.delete();
         }
 
         filesTextArea.setText("");
