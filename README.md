@@ -3,7 +3,9 @@
 This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
 each job to a resource at every given stage and outputs the energy function of the given schedule via a given pMin and pMax value.
 
-This value is the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a mimumim power constraint of 200 Watts and 300 Watts respectively. 
+This value is the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a mimumim power constraint of 200 Watts and 300 Watts respectively.
+
+The calculation also creates an idle mode, or 'power saving mode' when the utilisation of a resource goes down to 0%. At this level of utilisation the resource uses 10% of the pMin value. So if the pMin value is 200 Watts the idle mode will consume 20 Watts of power.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
 ```
