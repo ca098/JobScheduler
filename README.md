@@ -1,12 +1,13 @@
 # JobScheduler
 
 This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
-each job to a resource at every given stage and outputs the cenergy function of the given schedule via a given pMin and pMax value.
+each job to a resource at every given stage and outputs the energy function of the given schedule via a given pMin and pMax value.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
 ```
 src/sample/Output/
 ```
+There is a known bug of the overall energy consumption figures not producing the exact value, as the calculation is being drawn from the state of resources at a given arrival time and not accounting for when a resource becomes idle.
 
 # Build
 
@@ -37,7 +38,6 @@ button was implemented so that the files can be removed once you're finished cre
 
 ### Scheduled Output as a .txt File
 ![alt text][txtImage]
-
 
 
 [txtImage]: Documentation/txtImage.png ".txt format"
