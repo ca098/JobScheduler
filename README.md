@@ -16,6 +16,8 @@ There is a known bug of the overall energy consumption figures not producing the
 ### Total Energy
 The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example.
 
+It is hard to workout the power consumption in kWh as the time the resource runs is considered in milliseconds, therefore the schedule doesn't seem fit to work out power consumption in this fashion.
+
 ### Average Energy
 The average energy value you're seeing is the average power consumption across all active resources for the duration of the schedule, in correlation to the pMin and pMax value selected.
 
