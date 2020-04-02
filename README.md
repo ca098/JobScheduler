@@ -1,9 +1,9 @@
 # JobScheduler
 
-This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
+This JavaFX program generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
 each job to a resource at every given stage and outputs the energy function of the given schedule via a given pMin and pMax value.
 
-This value is the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a mimumim power constraint of 200 Watts and 300 Watts respectively.
+The pMin, pMax values are the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a power constraint of 200 Watts and 300 Watts respectively.
 
 The calculation also creates an idle mode, or 'power saving mode' when the utilisation of a resource goes down to 0%. At this level of utilisation the resource uses 10% of the pMin value. So if the pMin value is 200 Watts the idle mode will consume 20 Watts of power.
 
@@ -13,10 +13,10 @@ src/sample/Output/
 ```
 
 ## Energy Calculation
-There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at a given arrival time, and not accounting for when a resource becomes idle. Which at times can be in the window between the arrival times of different tasks.
+There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at each given arrival time. Which can occur in the window between the arrival times of different tasks.
 
 ### Total Energy
-The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example.
+The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example. Though at a given time the schedule will never use more than the pMax value of a resource multiplied by the amount of resources working concurrently, i.e. 3 Resources with a pMax of 30 will never consume more than 3 * 300 Watts = 900 Watts at a given time.
 
 It is hard to workout the power consumption in kWh as the time the resource runs is considered in milliseconds, therefore the schedule doesn't seem fit to work out power consumption in this fashion.
 
