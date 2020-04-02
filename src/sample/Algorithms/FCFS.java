@@ -3,6 +3,7 @@ package sample.Algorithms;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import sample.ScheduleController;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -89,6 +90,7 @@ public class FCFS {
                     }
                 }
             }
+            ScheduleController.totalTime = data.get(data.size()-1).getArrivalTime() + data.get(data.size()-1).getProcessingTime();;
         }
 
         long endTime = System.nanoTime();

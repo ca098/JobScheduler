@@ -69,6 +69,8 @@ public class ScheduleController {
     @FXML
     private Button deleteButton;
 
+    public static int totalTime;
+
 
     public void initialize() {
 
@@ -142,10 +144,18 @@ public class ScheduleController {
 
         long overallAmount = FCFSWattage(FCFS.wattageSchedule);
         energyRectangle.setVisible(true);
-        energyLabel.setText(String.format("     Scheduler Energy\nConsumption: %d(kW)", overallAmount / 1000));
+
+        double averageEnergy = (double) overallAmount  / totalTime;
+
+
+//        energyLabel.setText(Integer.toString(totalTime));
+
+        energyLabel.setText(String.format("      Average Energy\n Consumption: %.2f W\n\n" +
+                "    Total Consumption:\n            %d (kW)", averageEnergy, overallAmount/1000));
 
 
     }
+
 
     public long FCFSWattage(ArrayList<String> wattageSchedule) {
         long amount = 0;
@@ -159,6 +169,7 @@ public class ScheduleController {
             int nextTime = Integer.parseInt(nextParts[1]);
 
             amount += power * (nextTime - currentTime);
+
         }
         return amount;
     }
