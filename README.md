@@ -1,12 +1,27 @@
 # JobScheduler
 
-This is a JavaFX program which generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
-each job to a resource at every given stage and outputs the cenergy function of the given schedule via a given pMin and pMax value.
+This JavaFX program generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
+each job to a resource at every given stage and outputs the energy function of the given schedule via a given pMin and pMax value.
+
+The pMin, pMax values are the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a power constraint of 200 Watts and 300 Watts respectively.
+
+The calculation also creates an idle mode, or 'power saving mode' when the utilisation of a resource goes down to 0%. At this level of utilisation the resource uses 10% of the pMin value. So if the pMin value is 200 Watts the idle mode will consume 20 Watts of power.
 
 The output can be selected as either a __.txt__ file or a __.csv__ file. With the files being saved in the directory of the program under:
 ```
 src/sample/Output/
 ```
+
+## Energy Calculation
+There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at each given arrival time. Which can occur in the window between the arrival times of different tasks.
+
+### Total Energy
+The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example. Though at a given time the schedule will never use more than the pMax value of a resource multiplied by the amount of resources working concurrently, i.e. 3 Resources with a pMax of 30 will never consume more than 3 * 300 Watts = 900 Watts at a given time.
+
+It is hard to workout the power consumption in kWh as the time the resource runs is considered in milliseconds, therefore the schedule doesn't seem fit to work out power consumption in this fashion.
+
+### Average Energy
+The average energy value you're seeing is the average power consumption across all active resources for the duration of the schedule, in correlation to the pMin and pMax value selected.
 
 # Build
 
@@ -27,7 +42,7 @@ import this project.
 
 ## View
 
-Below is a screenshot of the running program, along with the output of schedule saved as a __.txt__ output.
+Below is a screenshot of the running program, along with the output of the schedule saved in a __.txt__ output.
 
 It is worth noting that some of the files that are generated can be in excess of > 25MB each, in which case the delete
 button was implemented so that the files can be removed once you're finished creating the schedule.
@@ -37,7 +52,6 @@ button was implemented so that the files can be removed once you're finished cre
 
 ### Scheduled Output as a .txt File
 ![alt text][txtImage]
-
 
 
 [txtImage]: Documentation/txtImage.png ".txt format"
