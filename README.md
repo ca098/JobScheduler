@@ -7,7 +7,11 @@ The output can be selected as either a __.txt__ file or a __.csv__ file. With th
 ```
 src/sample/Output/
 ```
-There is a known bug of the overall energy consumption figures not producing the exact value, as the calculation is being drawn from the state of resources at a given arrival time and not accounting for when a resource becomes idle.
+
+## Energy Calculation
+There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at a given arrival time, and not accounting for when a resource becomes idle. Which at times can be in the window between the arrival times of different tasks.
+
+The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example.
 
 # Build
 
