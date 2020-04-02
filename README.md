@@ -38,7 +38,7 @@ import this project.
 
 ## View
 
-Below is a screenshot of the running program, along with the output of schedule saved as a __.txt__ output.
+Below is a screenshot of the running program, along with the output of the schedule saved in a __.txt__ output.
 
 It is worth noting that some of the files that are generated can be in excess of > 25MB each, in which case the delete
 button was implemented so that the files can be removed once you're finished creating the schedule.
