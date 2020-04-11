@@ -127,6 +127,11 @@ public class ScheduleController {
         try {
 
             ArrayList<Task> tasks = TaskReader.readTasksFromFile(fPath);
+
+
+//            ArrayList<Task> tasks = TaskReader.readTasksFromFile("src/sample/Output/4Jobs.txt");
+
+
             int pMin = pMinCombo.getValue();
             int pMax = pMaxCombo.getValue();
 
@@ -145,10 +150,12 @@ public class ScheduleController {
         long overallAmount = FCFSWattage(FCFS.wattageSchedule);
         energyRectangle.setVisible(true);
 
+        double kWhAmount = (double) overallAmount / 3600000;
+
         double averageEnergy = (double) overallAmount / totalTime;
 
         energyLabel.setText(String.format("        Average Energy\n Consumption: %.2f W\n\n" +
-                "    Total Consumption:\n            %d (kW)", averageEnergy, overallAmount / 1000));
+                "    Total Consumption:\n            %.2f (kWh)", averageEnergy, kWhAmount));
 
         FCFS.wattageSchedule.clear();
     }

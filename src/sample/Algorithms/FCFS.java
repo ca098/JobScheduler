@@ -13,8 +13,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-// Test upload after file deletion?
-
 public class FCFS {
 
     public static ArrayList<String> wattageSchedule = new ArrayList<>();
@@ -25,7 +23,7 @@ public class FCFS {
 
         long startTime = System.nanoTime();
 
-        int total = 0;
+        int total;
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
         String formattedFileType = fileType.replaceAll("\\s+", "");
@@ -75,7 +73,6 @@ public class FCFS {
 //                r.printTasksOnResource();
 //                }
 
-
                 total = populateFile(pw, taskArrivalTime, assignedResources, pMin, pMax);
 
                 wattageSchedule.add(total + "=" + taskArrivalTime);
@@ -92,7 +89,7 @@ public class FCFS {
                     }
                 }
             }
-            ScheduleController.totalTime = data.get(data.size()-1).getArrivalTime() + data.get(data.size()-1).getProcessingTime();;
+            ScheduleController.totalTime = data.get(data.size()-1).getArrivalTime() + data.get(data.size()-1).getProcessingTime();
         }
 
         long endTime = System.nanoTime();
