@@ -71,7 +71,6 @@ public class ScheduleController {
 
     public static int totalTime;
 
-
     public void initialize() {
 
         ArrayList<Integer> jobNumber = new ArrayList<>();
@@ -80,26 +79,21 @@ public class ScheduleController {
         }
 
         ArrayList<Integer> pMinValue = new ArrayList<>();
-        ArrayList<Integer> pMaxValue = new ArrayList<>();
 
         for (int i = 1; i < 10; i++) {
             pMinValue.add(i * 10);
-            pMaxValue.add(i * 10);
         }
 
-        pMaxValue.add(100);
 
         ArrayList<String> fileChoices = new ArrayList<>();
         fileChoices.add(".txt ");
         fileChoices.add(".csv ");
 
         ObservableList<Integer> pMinVisValue = FXCollections.observableArrayList(pMinValue);
-        ObservableList<Integer> pMaxVisValue = FXCollections.observableArrayList(pMaxValue);
         ObservableList<Integer> jobAmount = FXCollections.observableArrayList(jobNumber);
         ObservableList<String> fileChoicesVisible = FXCollections.observableArrayList(fileChoices);
 
         pMinCombo.setItems(pMinVisValue);
-        pMaxCombo.setItems(pMaxVisValue);
 
 
         jobCombo.setItems(jobAmount);
@@ -127,11 +121,6 @@ public class ScheduleController {
         try {
 
             ArrayList<Task> tasks = TaskReader.readTasksFromFile(fPath);
-
-
-//            ArrayList<Task> tasks = TaskReader.readTasksFromFile("src/sample/Output/4Jobs.txt");
-
-
             int pMin = pMinCombo.getValue();
             int pMax = pMaxCombo.getValue();
 
@@ -192,14 +181,24 @@ public class ScheduleController {
         System.exit(0);
     }
 
+    public void injectPMaxCombo() {
+        ArrayList<Integer> intList = new ArrayList<>();
+        int lowestValue = pMinCombo.getValue() + 10;
+        for (int i = lowestValue / 10; i < 11; i++) {
+            intList.add(i * 10);
+        }
+        ObservableList<Integer> pMaxOutput = FXCollections.observableArrayList(intList);
+        pMaxCombo.setItems(pMaxOutput);
+    }
+
+    public void clearPMax() {
+        pMaxCombo.setValue(null);
+    }
+
 
     public void activateButton() {
-        if (pMinCombo.getValue() != null)
-            pMaxCombo.setValue(pMinCombo.getValue() + 10);
-        if (jobCombo.getValue() != null && fileChoiceCombo.getValue() != null
-                && pMinCombo.getValue() != null) {
-            submitButton.setDisable(false);
-        }
+        submitButton.setDisable(jobCombo.getValue() == null || fileChoiceCombo.getValue() == null
+                || pMinCombo.getValue() == null || pMaxCombo.getValue() == null);
     }
 
     public void newTask() {
