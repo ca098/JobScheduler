@@ -16,9 +16,7 @@ src/sample/Output/
 There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at each given arrival time. Which can occur in the window between the arrival times of different tasks.
 
 ### Total Energy
-The total energy consumption may seem like it is too high. However, this is a summation of all the different resource utilisation levels for X amount of time. It can be compared to having a 60 Watt light bulb running for 1 Hr. There is a calculation of either 0.06 kWh or 60 Watt * 3600 (seconds in an hour) = 212,000 Watts. The latter calculation is what you're seeing from this example. Though at a given time the schedule will never use more than the pMax value of a resource multiplied by the amount of resources working concurrently, i.e. 3 Resources with a pMax of 30 will never consume more than 3 * 300 Watts = 900 Watts at a given time.
-
-It is hard to workout the power consumption in kWh as the time the resource runs is considered in milliseconds, therefore the schedule doesn't seem fit to work out power consumption in this fashion.
+The total energy consumption is calculated as a summnation of each figure of Wattage at each resource state. This is then multiplied by the time at which the resource sits at that utilisation, the resulting value is a large number that is the amount of Watt seconds or Joules the schedule outputs. To get the output in kWh the value is divided by 3,600,000. This is following the guidelines from the National System of Units, where it is calculated from 3,600 seconds in a given hour and 1,000 Watts in a Killowatt. Thus 3,600 * 1,000 = 3,600,000.
 
 ### Average Energy
 The average energy value you're seeing is the average power consumption across all active resources for the duration of the schedule, in correlation to the pMin and pMax value selected.
