@@ -16,22 +16,18 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="450.0" prefWidth="750.0" stylesheets="@flatbee.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ScheduleController">
+<VBox prefHeight="450.0" prefWidth="750.0" stylesheets="@flatbee.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ScheduleController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#closeProgram" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" onAction="#gitReadMe" text="Go to Documentation" />
-          </items>
-        </Menu>
+          <Menu mnemonicParsing="false" text="Options">
+              <MenuItem mnemonicParsing="false" onAction="#fileLocation" text="Go to file location..." />
+              <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#closeProgram" text="Quit" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+              <MenuItem mnemonicParsing="false" onAction="#gitReadMe" text="Go to Documentation" />
+          </Menu>
       </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0" VBox.vgrow="ALWAYS">
@@ -85,7 +81,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="pMaxCombo" layoutX="277.0" layoutY="171.0" onAction="#activateButton" onMouseClicked="#injectPMaxCombo" prefHeight="27.0" prefWidth="70.0" />
+            <ComboBox fx:id="pMaxCombo" disable="true" layoutX="277.0" layoutY="171.0" onAction="#activateButton" onMouseClicked="#injectPMaxCombo" prefHeight="27.0" prefWidth="70.0" />
             <Label fx:id="energyLabel" layoutX="371.0" layoutY="166.0" prefHeight="103.0" prefWidth="178.0">
                <font>
                   <Font name="Arial Bold" size="14.0" />

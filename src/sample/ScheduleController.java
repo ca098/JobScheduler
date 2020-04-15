@@ -16,14 +16,16 @@ import sample.Algorithms.TaskReader;
 import sample.DataGenerator.Generator;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class ScheduleController {
 
@@ -102,7 +104,35 @@ public class ScheduleController {
         setClock(timeLabel);
     }
 
-    public void chosenJobs() {
+
+//    private static String readAll(Reader rd) throws IOException {
+//        StringBuilder sb = new StringBuilder();
+//        int cp;
+//        while ((cp = rd.read()) != -1) {
+//            sb.append((char) cp);
+//        }
+//        return sb.toString();
+//    }
+//
+//    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+//        try (InputStream is = new URL(url).openStream()) {
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+//            String jsonText = readAll(rd);
+//            return new JSONObject(jsonText);
+//        }
+//    }
+
+    public void fileLocation() {
+        try {
+            Desktop.getDesktop().open(new File("src/sample/Output"));
+        }
+        catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+
+    public void chosenJobs() throws Exception {
         Integer selectedNumber = jobCombo.getValue();
         String fileType = fileChoiceCombo.getValue();
 
@@ -140,7 +170,6 @@ public class ScheduleController {
         energyRectangle.setVisible(true);
 
         double kWhAmount = (double) overallAmount / 3600000;
-
         double averageEnergy = (double) overallAmount / totalTime;
 
         energyLabel.setText(String.format("        Average Energy\n Consumption: %.2f W\n\n" +
@@ -197,6 +226,7 @@ public class ScheduleController {
 
 
     public void activateButton() {
+        pMaxCombo.setDisable(false);
         submitButton.setDisable(jobCombo.getValue() == null || fileChoiceCombo.getValue() == null
                 || pMinCombo.getValue() == null || pMaxCombo.getValue() == null);
     }
@@ -220,9 +250,11 @@ public class ScheduleController {
     public void deleteFiles() {
         final File folder = new File("src/sample/Output");
         String[] entries = folder.list();
-        for (String s : entries) {
-            File currentFile = new File(folder.getPath(), s);
-            boolean isDeleted = currentFile.delete();
+        if(entries != null) {
+            for (String s : entries) {
+                File currentFile = new File(folder.getPath(), s);
+                boolean isDeleted = currentFile.delete();
+            }
         }
 
         filesTextArea.setText("");

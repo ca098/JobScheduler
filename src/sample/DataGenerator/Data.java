@@ -2,10 +2,10 @@ package sample.DataGenerator;
 
 public class Data {
 
-    private int taskNumber;
-    private int arrivalTime;
-    private int processingTime;
-    private int utilisation;
+    private final int taskNumber;
+    private final int arrivalTime;
+    private final int processingTime;
+    private final int utilisation;
 
 
     public Data(int taskNumber, int arrivalTime, int processingTime, int utilisation) {

@@ -38,8 +38,8 @@ public class FCFS {
 
                 for (Resource resource : assignedResources) {
                     resource.updateResource(taskArrivalTime);
-
                 }
+
                 // If task is the 0th one
                 if (task.getTaskNo() == 0) {
                     Resource r = new Resource(0);
