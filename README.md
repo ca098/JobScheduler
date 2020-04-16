@@ -66,8 +66,12 @@ button was implemented so that the files can be removed once you're finished cre
  <br />
  <br />
  <br />
+ <br />
+ <br />
+ <br />
+ <br />
 
-### Scheduled Output as a .txt File
+### Scheduled Output in .txt Format
 
 <img src="Documentation/txtImage.png" alt=".txt Output" align="left" height="712" width="354" ></a> 
 
