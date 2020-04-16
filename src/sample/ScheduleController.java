@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 import sample.Algorithms.FCFS;
 import sample.Algorithms.Resource;
 import sample.Algorithms.Task;
-import sample.Algorithms.TaskReader;
 import sample.DataGenerator.Generator;
 
 import java.awt.*;
@@ -71,6 +70,7 @@ public class ScheduleController {
     private Button deleteButton;
 
     public static int totalTime;
+    public static ArrayList<Task> taskList;
 
     public void initialize() {
 
@@ -103,23 +103,6 @@ public class ScheduleController {
     }
 
 
-//    private static String readAll(Reader rd) throws IOException {
-//        StringBuilder sb = new StringBuilder();
-//        int cp;
-//        while ((cp = rd.read()) != -1) {
-//            sb.append((char) cp);
-//        }
-//        return sb.toString();
-//    }
-//
-//    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-//        try (InputStream is = new URL(url).openStream()) {
-//            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-//            String jsonText = readAll(rd);
-//            return new JSONObject(jsonText);
-//        }
-//    }
-
     public void fileLocation() {
         try {
             Desktop.getDesktop().open(new File("src/sample/Output"));
@@ -130,7 +113,7 @@ public class ScheduleController {
     }
 
 
-    public void chosenJobs() throws Exception {
+    public void chosenJobs() {
         Integer selectedNumber = jobCombo.getValue();
         String fileType = fileChoiceCombo.getValue();
 
@@ -141,18 +124,15 @@ public class ScheduleController {
         if (selectedNumber == null) {
             selectedNumber = 0;
         }
+
         Generator.main(selectedNumber);
-
-
-        String fPath = String.format("src/sample/Output/%dJobs.txt", selectedNumber);
 
         try {
 
-            ArrayList<Task> tasks = TaskReader.readTasksFromFile(fPath);
             int pMin = pMinCombo.getValue();
             int pMax = pMaxCombo.getValue();
 
-            ArrayList<Resource> fcfsAlgorithm = FCFS.Algorithm(tasks, progressBar, progressIndicator,
+            ArrayList<Resource> fcfsAlgorithm = FCFS.Algorithm(taskList, progressBar, progressIndicator,
                     timeTakenLbl, fileType, pMin, pMax);
 
         } catch (Exception e) {

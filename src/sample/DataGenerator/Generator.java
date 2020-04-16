@@ -1,4 +1,7 @@
 package sample.DataGenerator;
+import sample.Algorithms.Task;
+import sample.ScheduleController;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +16,6 @@ public class Generator {
     public static void main(int input) {
 
         if (input >= 1) {
-
             try {
                 populateFile(input);
                 String filePath = "src/sample/Output";
@@ -25,11 +27,11 @@ public class Generator {
     }
 
 
-    public static ArrayList<Data> generateData(int fileSize) {
-        ArrayList<Data> dataList = new ArrayList<>();
+    public static ArrayList<Task> generateData(int input) {
+        ArrayList<Task> dataList = new ArrayList<>();
         SecureRandom rand = new SecureRandom();
 
-        for (int i = 0; i < fileSize; i++) {
+        for (int i = 0; i < input; i++) {
             int procTimeAdd = rand.nextInt(20 - 3 + 3) + 3;
             int util = ThreadLocalRandom.current().nextInt(2, 7 + 1) * 10;
 
@@ -41,20 +43,23 @@ public class Generator {
             else
                 arrival = dataList.get(i - 1).getArrivalTime() + increment;
 
-            Data data = new Data(i, arrival, procTimeAdd, util);
+            Task data = new Task(i, arrival, procTimeAdd, util);
             dataList.add(data);
         }
+
+        ScheduleController.taskList = dataList;
+
         return dataList;
     }
 
 
     public static void populateFile(int input) throws IOException {
         String fileName = String.format("src/sample/Output/%dJobs.txt", input);
-        ArrayList<Data> output = generateData(input);
+        ArrayList<Task> output = generateData(input);
         try {
             File file = new File(fileName);
             try (PrintWriter pw = new PrintWriter(new FileOutputStream(file))) {
-                for (Data s : output) {
+                for (Task s : output) {
                     pw.println(s);
                 }
             }

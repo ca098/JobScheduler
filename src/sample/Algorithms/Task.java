@@ -11,7 +11,7 @@ public class Task {
     private final int utilisation;
     private boolean finished;
 
-    Task(int taskNo, int arrivalTime, int processingTime, int utilisation) {
+    public Task(int taskNo, int arrivalTime, int processingTime, int utilisation) {
         this.taskNo = taskNo;
         this.arrivalTime = arrivalTime;
         this.processingTime = processingTime;
