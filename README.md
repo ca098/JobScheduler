@@ -1,9 +1,9 @@
 # JobScheduler
 
 This JavaFX program generates a set of jobs from a psuedorandom number generator (PRNG), and shows the schedule of
-each job to a resource at every given stage and outputs the energy function of the given schedule via a given pMin and pMax value.
+each job to a resource at every given stage. The output is the energy consumption of the given schedule influenced via a given pMin and pMax value.
 
-The pMin, pMax values are the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 30 corresponds to a power constraint of 200 Watts and 300 Watts respectively.
+The pMin, pMax values are the minimum and maximum power constraint given to a resource. For example, a pMin value of 20 and a pMax value of 50 corresponds to a power constraint of 200 Watts and 500 Watts respectively.
 
 The calculation also creates an idle mode, or 'power saving mode' when the utilisation of a resource goes down to 0%. At this level of utilisation the resource uses 10% of the pMin value. So if the pMin value is 200 Watts the idle mode will consume 20 Watts of power.
 
@@ -13,13 +13,14 @@ src/sample/Output/
 ```
 
 ## Energy Calculation
-There is a known bug of the overall energy consumption figures not producing the exact value. This is because the calculation is being drawn from the state of resources at each given arrival time. Which can occur in the window between the arrival times of different tasks.
+There is a known bug in the calculation of the overall energy consumption not producing the exact value. This is because the calculation is being drawn from the state of resources at each given arrival time. Subsequently, a job may be released in the window between the arrival times of different tasks.
 
 ### Total Energy
-The total energy consumption is calculated as a summnation of each figure of Wattage at each resource state. This is then multiplied by the time at which the resource sits at that utilisation, the resulting value is a large number that is the amount of Watt seconds or Joules the schedule outputs. To get the output in kWh the value is divided by 3,600,000. This is following the guidelines from the National System of Units, where it is calculated from 3,600 seconds in a given hour and 1,000 Watts in a Killowatt. Thus 3,600 * 1,000 = 3,600,000.
+The total energy consumption is calculated as a summnation of each figure of Wattage at each resource state. This is then multiplied by the time at which the resource sits at that utilisation. The resulting value is a large number that is the amount of Watt seconds / Joules the schedule outputs. To get the output in kWh the value is divided by 3,600,000, where it is calculated from 3,600 seconds in a given hour and 1,000 Watts in a Killowatt. Thus 3,600 * 1,000 = 3,600,000. This follows the guidelines from the [National System of Units](https://www.bipm.org/utils/common/pdf/si-brochure/SI-Brochure-9-EN.pdf).
+
 
 ### Average Energy
-The average energy value you're seeing is the average power consumption across all active resources for the duration of the schedule, in correlation to the pMin and pMax value selected.
+The average energy value you see is the average power consumption across all active resources for the duration of the schedule, in correlation to the pMin and pMax value selected.
 
 # Build
 
@@ -29,29 +30,49 @@ version that isn't Java 8. This was created in Java 11.
 Issue Details:
 [[JetBrains Ticket 200721]](https://youtrack.jetbrains.com/issue/IDEA-200721?_ga=2.224905754.1868922875.1585741664-751629145.1585393092)
 
-Therefore, the current way to build this program is to either create a virtual environment and bundle all of the imports
-into it and then run:
+Therefore, to build this program either clone or download this repository and set the Main class as:
 ```
 src/sample/Main.java
 ```
-Or, create a new Project into an IDE of your choosing such as IntelliJ or Netbeans and
-import this project.
+A virtual environment may need to be created for all of the libraries and imports that are required.
 
 
 ## View
 
-Below is a screenshot of the running program, along with the output of the schedule saved in a __.txt__ output.
+Below is a screenshot of the running program, along with the output of the schedule saved as a __.txt__ output.
 
-It is worth noting that some of the files that are generated can be in excess of > 25MB each, in which case the delete
+It is worth noting that some of the files that are generated can be in excess of > 25MB each. In which case the delete
 button was implemented so that the files can be removed once you're finished creating the schedule.
 
+
 ### Program Image
-![alt text][programImage] 
 
-### Scheduled Output as a .txt File
-![alt text][txtImage]
+<img src="Documentation/programImage.png" alt="Output after scheduling 5000 jobs" align="left" height="474" width="752" ></a> 
 
 
-[txtImage]: Documentation/txtImage.png ".txt format"
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
 
-[programImage]: Documentation/programImage.png "Output after scheduling 5000 jobs"
+### Scheduled Output in .txt Format
+
+<img src="Documentation/txtImage.png" alt=".txt Output" align="left" height="712" width="354" ></a> 
+
+
