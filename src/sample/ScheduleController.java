@@ -23,10 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 public class ScheduleController {
 
     @FXML
@@ -49,6 +45,9 @@ public class ScheduleController {
 
     @FXML
     private Label timeTakenLbl;
+
+    @FXML
+    private Label machineAmount;
 
     @FXML
     private Label energyLabel;
@@ -85,7 +84,6 @@ public class ScheduleController {
         for (int i = 1; i < 10; i++) {
             pMinValue.add(i * 10);
         }
-
 
         ArrayList<String> fileChoices = new ArrayList<>();
         fileChoices.add(".txt ");
@@ -130,7 +128,7 @@ public class ScheduleController {
             System.out.println(e.toString());
         }
     }
-    
+
 
     public void chosenJobs() throws Exception {
         Integer selectedNumber = jobCombo.getValue();
@@ -175,7 +173,10 @@ public class ScheduleController {
         energyLabel.setText(String.format("        Average Energy\n Consumption: %.2f W\n\n" +
                 "    Total Consumption:\n            %.2f (kWh)", averageEnergy, kWhAmount));
 
+        machineAmount.setText("Total Active VMs: " + FCFS.totalNumberOfMachines);
+
         FCFS.wattageSchedule.clear();
+
     }
 
 
@@ -224,7 +225,6 @@ public class ScheduleController {
         pMaxCombo.setValue(null);
     }
 
-
     public void activateButton() {
         pMaxCombo.setDisable(false);
         submitButton.setDisable(jobCombo.getValue() == null || fileChoiceCombo.getValue() == null
@@ -243,6 +243,7 @@ public class ScheduleController {
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
         energyLabel.setText("");
+        machineAmount.setText("");
         energyRectangle.setVisible(false);
     }
 
@@ -274,7 +275,6 @@ public class ScheduleController {
             }
         }
     }
-
 
     public void setClock(Label timeLabel) {
         Thread timerThread = new Thread(() -> {

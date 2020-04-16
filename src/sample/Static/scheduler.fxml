@@ -87,6 +87,11 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
+            <Label fx:id="machineAmount" layoutX="399.0" layoutY="276.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
     </AnchorPane>
   </children>

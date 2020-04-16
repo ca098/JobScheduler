@@ -17,6 +17,8 @@ public class FCFS {
 
     public static ArrayList<String> wattageSchedule = new ArrayList<>();
 
+    public static int totalNumberOfMachines = 0;
+
     public static ArrayList<Resource> Algorithm(ArrayList<Task> data, ProgressBar bar,
                                                 ProgressIndicator indicator, Label timeTaken,
                                                 String fileType, int pMin, int pMax) throws IOException {
@@ -95,6 +97,8 @@ public class FCFS {
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;
         timeTaken.setText(String.format("Scheduler completed in: %dms ", duration));
+
+        totalNumberOfMachines = assignedResources.size();
 
         return assignedResources;
     }
