@@ -54,4 +54,4 @@ button was implemented so that the files can be removed once you're finished cre
 
 [txtImage]: Documentation/txtImage.png ".txt format"
 
-[programImage]: Documentation/programImage.png =100x20 "Output after scheduling 5000 jobs"
+[programImage]: Documentation/programImage.png "Output after scheduling 5000 jobs"
