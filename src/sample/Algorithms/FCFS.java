@@ -1,16 +1,11 @@
 package sample.Algorithms;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import sample.ScheduleController;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class FCFS {
@@ -19,12 +14,8 @@ public class FCFS {
 
     public static int totalNumberOfMachines = 0;
 
-    public static ArrayList<Resource> Algorithm(ArrayList<Task> data, ProgressBar bar,
-                                                ProgressIndicator indicator, Label timeTaken,
-                                                String fileType, int pMin, int pMax) throws IOException {
-
-        long startTime = System.nanoTime();
-
+    public static void Algorithm(ArrayList<Task> data, String fileType,
+                                                int pMin, int pMax) throws IOException {
         int total;
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
@@ -69,74 +60,14 @@ public class FCFS {
                     }
                 }
 
-//                System.out.println("\n******** Resource state at Arrival Time: " + taskArrivalTime + " ********\n");
-//                for (Resource r : assignedResources) {
-//                    System.out.println("Resource: " + r.getResourceID() + ", Utilisation: " + r.getCurrentUtilisation() + "%");
-//                r.printTasksOnResource();
-//                }
-
-                total = populateFile(pw, taskArrivalTime, assignedResources, pMin, pMax);
+                total = Handler.populateFile(pw, taskArrivalTime, assignedResources, pMin, pMax);
 
                 wattageSchedule.add(total + "=" + taskArrivalTime);
 
-                if (task.getTaskNo() > 1) {
-                    double size = ((double) task.getTaskNo()) / data.size();
-
-                    try {
-                        double value = round(size, 2);
-                        bar.setProgress(value);
-                        indicator.setProgress(value);
-                    } catch (Exception e) {
-                        System.out.println(e.toString());
-                    }
-                }
             }
             ScheduleController.totalTime = data.get(data.size()-1).getArrivalTime() + data.get(data.size()-1).getProcessingTime();
         }
 
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000;
-        timeTaken.setText(String.format("Scheduler completed in: %dms ", duration));
-
         totalNumberOfMachines = assignedResources.size();
-
-        return assignedResources;
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-
-    public static int cost(int pMin, int pMax, int utilisation) {
-        if (utilisation == 0) {
-            return pMin;
-        } else {
-            return ((pMax - pMin) * utilisation / 100 + pMin) * 10;
-        }
-    }
-
-    public static int populateFile(PrintWriter pw, int taskArrivalTime, ArrayList<Resource> assignedResources,
-                                   int pMin, int pMax) {
-
-        pw.println("\n******** Resource state at Arrival Time: " + taskArrivalTime + " ********\n");
-        int total = 0;
-        for (Resource r : assignedResources) {
-            int currentPower = 0;
-            currentPower += cost(pMin, pMax, r.getCurrentUtilisation());
-            total += cost(pMin, pMax, r.getCurrentUtilisation());
-            pw.println("Resource: " + r.getResourceID() + ", Utilisation: " + r.getCurrentUtilisation() + "%" + ", Watts: " + currentPower);
-            String formattedString = r.getTasksOnResource().toString()
-                    .replace(",", "")
-                    .replace("[", "")
-                    .replace("]", "")
-                    .trim();
-            pw.println(formattedString);
-            pw.println("--------------------");
-        }
-        return total;
     }
 }

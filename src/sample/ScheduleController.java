@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
 import javafx.scene.shape.Rectangle;
+import sample.Algorithms.BF;
 import sample.Algorithms.FCFS;
 import sample.Algorithms.Resource;
 import sample.Algorithms.Task;
@@ -46,10 +47,13 @@ public class ScheduleController {
     private Label timeTakenLbl;
 
     @FXML
-    private Label machineAmount;
+    private Label FCFSEnergyLabel;
 
     @FXML
-    private Label energyLabel;
+    private Label totalEnergylbl;
+
+    @FXML
+    private Label averageEnergyLbl;
 
     @FXML
     private ProgressBar progressBar;
@@ -113,7 +117,8 @@ public class ScheduleController {
     }
 
 
-    public void chosenJobs() {
+    public void ActivateSchedule() {
+
         Integer selectedNumber = jobCombo.getValue();
         String fileType = fileChoiceCombo.getValue();
 
@@ -127,16 +132,18 @@ public class ScheduleController {
 
         Generator.main(selectedNumber);
 
+        int pMin = pMinCombo.getValue();
+        int pMax = pMaxCombo.getValue();
+
+        long startTime = System.nanoTime();
+
         try {
 
-            int pMin = pMinCombo.getValue();
-            int pMax = pMaxCombo.getValue();
-
-            ArrayList<Resource> fcfsAlgorithm = FCFS.Algorithm(taskList, progressBar, progressIndicator,
-                    timeTakenLbl, fileType, pMin, pMax);
+            FCFS.Algorithm(taskList, fileType, pMin, pMax);
+            BF.Algorithm(taskList, progressBar, progressIndicator, fileType, pMin, pMax);
 
         } catch (Exception e) {
-            System.out.println("File not found: " + e.toString());
+            System.out.println("Error Creating Schedules: " + e.toString());
         }
 
         final File folder = new File("src/sample/Output");
@@ -144,23 +151,43 @@ public class ScheduleController {
 
         deleteButton.setDisable(false);
 
-        long overallAmount = FCFSWattage(FCFS.wattageSchedule);
+        long FCFS_overallAmount = Wattage(FCFS.wattageSchedule);
+        long BF_overallAmount = Wattage(BF.wattageSchedule);
+
         energyRectangle.setVisible(true);
 
-        double kWhAmount = (double) overallAmount / 3600000;
-        double averageEnergy = (double) overallAmount / totalTime;
+        double FCFS_kWhAmount = (double) FCFS_overallAmount / 3600000;
+        double BF_kWhAmount = (double) BF_overallAmount / 3600000;
 
-        energyLabel.setText(String.format("        Average Energy\n Consumption: %.2f W\n\n" +
-                "    Total Consumption:\n            %.2f (kWh)", averageEnergy, kWhAmount));
+        double FCFS_averageEnergy = (double) FCFS_overallAmount / totalTime;
+        double BF_averageEnergy = (double) BF_overallAmount / totalTime;
 
-        machineAmount.setText("Total Active VMs: " + FCFS.totalNumberOfMachines);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1000000;
 
+        timeTakenLbl.setText(String.format("Scheduler completed in: %dms ", duration));
+
+        FCFSEnergyLabel.setText("         Average Energy \n          Consumption:" +
+                "\n"+
+                "\n\n\n" +
+                "      Total Consumption:\n" +
+                "\n\n\n");
+
+
+        averageEnergyLbl.setText(String.format("FCFS  = %.2f W\nBF       = %.2f W", FCFS_averageEnergy, BF_averageEnergy));
+        totalEnergylbl.setText(String.format("FCFS  = %.2f kWh\nBF       = %.2f kWh", FCFS_kWhAmount, BF_kWhAmount));
+
+
+        System.out.printf("\nFCFS VMs: %d\nBF VMs: %d", FCFS.totalNumberOfMachines, BF.totalNumberOfMachines);
+
+
+        // Clear Data from Previous Computation
         FCFS.wattageSchedule.clear();
-
+        BF.wattageSchedule.clear();
     }
 
 
-    public long FCFSWattage(ArrayList<String> wattageSchedule) {
+    public long Wattage(ArrayList<String> wattageSchedule) {
         long amount = 0;
         for (int i = 0; i < wattageSchedule.size() - 1; i++) {
 
@@ -222,8 +249,10 @@ public class ScheduleController {
         progressBar.setVisible(false);
         timeTakenLbl.setText("");
         timeRectangle.setVisible(false);
-        energyLabel.setText("");
-        machineAmount.setText("");
+        FCFSEnergyLabel.setText("");
+        totalEnergylbl.setText("");
+        averageEnergyLbl.setText("");
+
         energyRectangle.setVisible(false);
     }
 

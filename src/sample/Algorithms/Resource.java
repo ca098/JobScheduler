@@ -52,6 +52,11 @@ public class Resource {
         return alone;
     }
 
+    public void AddTaskToResourceBF(Task task) {
+        this.tasksOnResource.add(task);
+        updateUtilisation();
+    }
+
 //    public int TimeTogether(Task incomingTask) {
 //        int together = 0;
 //        int newTaskFinish = incomingTask.getArrivalTime() + incomingTask.getProcessingTime();
@@ -108,7 +113,6 @@ public class Resource {
             }
         }
         return false;
-
     }
 
     public ArrayList<Task> getTasksOnResource() {
@@ -120,5 +124,13 @@ public class Resource {
             t.print();
         }
         System.out.println("--------------------");
+    }
+
+    public static int cost(int pMin, int pMax, int utilisation) {
+        if (utilisation == 0) {
+            return pMin;
+        } else {
+            return ((pMax - pMin) * utilisation / 100 + pMin) * 10;
+        }
     }
 }
