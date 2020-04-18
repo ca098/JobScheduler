@@ -53,6 +53,15 @@ public class ScheduleController {
     private Label totalEnergylbl;
 
     @FXML
+    private Label VMLbl_FCFS;
+
+    @FXML
+    private Label VMLbl_BF;
+
+    @FXML
+    private Label allocatedLbl;
+
+    @FXML
     private Label averageEnergyLbl;
 
     @FXML
@@ -66,6 +75,9 @@ public class ScheduleController {
 
     @FXML
     private Rectangle energyRectangle;
+
+    @FXML
+    private Rectangle VMRectangle;
 
     @FXML
     private TextArea filesTextArea;
@@ -82,6 +94,8 @@ public class ScheduleController {
         for (int j = 5000; j <= 50000; j = j + 5000) {
             jobNumber.add(j);
         }
+
+        jobNumber.add(2500);
 
         ArrayList<Integer> pMinValue = new ArrayList<>();
 
@@ -167,10 +181,10 @@ public class ScheduleController {
 
         timeTakenLbl.setText(String.format("Scheduler completed in: %dms ", duration));
 
-        FCFSEnergyLabel.setText("         Average Energy \n          Consumption:" +
+        FCFSEnergyLabel.setText("         Average Energy \n          Consumption" +
                 "\n"+
                 "\n\n\n" +
-                "      Total Consumption:\n" +
+                "      Total Consumption\n" +
                 "\n\n\n");
 
 
@@ -178,7 +192,11 @@ public class ScheduleController {
         totalEnergylbl.setText(String.format("FCFS  = %.2f kWh\nBF       = %.2f kWh", FCFS_kWhAmount, BF_kWhAmount));
 
 
-        System.out.printf("\nFCFS VMs: %d\nBF VMs: %d", FCFS.totalNumberOfMachines, BF.totalNumberOfMachines);
+        VMRectangle.setVisible(true);
+
+        allocatedLbl.setText("VMs Allocated");
+        VMLbl_FCFS.setText("FCFS VMs: " + FCFS.totalNumberOfMachines);
+        VMLbl_BF.setText("BF VMs: " + BF.totalNumberOfMachines);
 
 
         // Clear Data from Previous Computation
@@ -252,6 +270,10 @@ public class ScheduleController {
         FCFSEnergyLabel.setText("");
         totalEnergylbl.setText("");
         averageEnergyLbl.setText("");
+        VMLbl_FCFS.setText("");
+        VMLbl_BF.setText("");
+        allocatedLbl.setText("");
+        VMRectangle.setVisible(false);
 
         energyRectangle.setVisible(false);
     }

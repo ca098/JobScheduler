@@ -10,7 +10,7 @@ public class Resource {
 
     private int pMin; //Power
     private int pMax;
-    private int resourceID; // Name of the processor
+    private final int resourceID; // Name of the processor
     private int currentUtilisation;
     private ArrayList<Task> tasksOnResource;
     private int timeFree; // The time at which a resources last task finishes
