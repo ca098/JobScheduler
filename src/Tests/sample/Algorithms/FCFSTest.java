@@ -5,6 +5,7 @@
 //import javafx.scene.control.ProgressIndicator;
 //import org.junit.jupiter.api.Test;
 //
+//import java.security.spec.ECField;
 //import java.util.ArrayList;
 //
 //import static org.junit.jupiter.api.Assertions.*;
@@ -14,18 +15,22 @@
 //    @Test
 //    void algorithm() {
 //
+//
 //        ArrayList<Task> testData = testList();
-//        ProgressBar dummyBar = null;
-//        ProgressIndicator dummyIndicator = null;
-//        Label dummyLabel = null;
-//        String dummyFileType = ".txt";
-//        assertEquals(FCFS.Algorithm(testData, dummyBar, dummyIndicator, dummyLabel, dummyFileType, 20, 30));
+//        String fileType = ".txt";
+//
+//        try {
+////            assertEquals(FCFS.Algorithm(testData, fileType, 20, 30), );
+//        }
+//        catch(Exception e) {
+//            System.out.println(e.toString());
+//        }
 //    }
 //
 //
 //    public ArrayList<Task> testList() {
 //        String fPath = "src/Tests/4Jobs.txt";
-//        return TaskReader.readTasksFromFile(fPath);
+//        return Handler.readTasksFromFile(fPath);
 //    }
 //
 //    public ArrayList<Resource> desiredOutput() {

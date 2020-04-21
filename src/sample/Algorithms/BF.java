@@ -40,8 +40,8 @@ public class BF {
                     Resource r = new Resource(0);
                     r.addTask(task);
                     assignedResources.add(r);
-                } else {
-
+                }
+                else {
                     int max = 0;
                     int index = 0;
 
@@ -82,7 +82,6 @@ public class BF {
                 }
             }
         }
-
         totalNumberOfMachines = assignedResources.size();
     }
 }

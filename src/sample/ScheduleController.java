@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.shape.Rectangle;
 import sample.Algorithms.BF;
 import sample.Algorithms.FCFS;
-import sample.Algorithms.Resource;
 import sample.Algorithms.Task;
 import sample.DataGenerator.Generator;
 
@@ -91,14 +90,12 @@ public class ScheduleController {
     public void initialize() {
 
         ArrayList<Integer> jobNumber = new ArrayList<>();
+        jobNumber.add(2500);
         for (int j = 5000; j <= 50000; j = j + 5000) {
             jobNumber.add(j);
         }
 
-        jobNumber.add(2500);
-
         ArrayList<Integer> pMinValue = new ArrayList<>();
-
         for (int i = 1; i < 10; i++) {
             pMinValue.add(i * 10);
         }
@@ -112,8 +109,6 @@ public class ScheduleController {
         ObservableList<String> fileChoicesVisible = FXCollections.observableArrayList(fileChoices);
 
         pMinCombo.setItems(pMinVisValue);
-
-
         jobCombo.setItems(jobAmount);
         fileChoiceCombo.setItems(fileChoicesVisible);
 

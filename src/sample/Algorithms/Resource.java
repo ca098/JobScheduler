@@ -7,12 +7,11 @@ import java.util.ArrayList;
 
 public class Resource {
 
-
     private int pMin; //Power
     private int pMax;
     private final int resourceID; // Name of the processor
     private int currentUtilisation;
-    private ArrayList<Task> tasksOnResource;
+    private final ArrayList<Task> tasksOnResource;
     private int timeFree; // The time at which a resources last task finishes
 
 
@@ -38,6 +37,8 @@ public class Resource {
         tasksOnResource.add(t);
         updateUtilisation();
     }
+
+
 
     public int TimeAlone(Task incomingTask) {
         int alone = 0;

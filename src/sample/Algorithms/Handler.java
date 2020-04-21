@@ -64,6 +64,4 @@ public class Handler {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-
-
 }

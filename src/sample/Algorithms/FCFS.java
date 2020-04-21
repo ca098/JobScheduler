@@ -15,7 +15,7 @@ public class FCFS {
     public static int totalNumberOfMachines = 0;
 
     public static void Algorithm(ArrayList<Task> data, String fileType,
-                                                int pMin, int pMax) throws IOException {
+                                 int pMin, int pMax) throws IOException {
         int total;
 
         ArrayList<Resource> assignedResources = new ArrayList<>();
@@ -38,7 +38,8 @@ public class FCFS {
                     Resource r = new Resource(0);
                     r.addTask(task);
                     assignedResources.add(r);
-                } else {
+                }
+                else {
                     // Keep looking at the assigned resources until the task is added
                     boolean added = false;
                     while (!added) {
@@ -69,5 +70,6 @@ public class FCFS {
         }
 
         totalNumberOfMachines = assignedResources.size();
+
     }
 }
