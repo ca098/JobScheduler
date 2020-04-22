@@ -73,6 +73,8 @@ button was implemented so that the files can be removed once you're finished cre
 
 ### Scheduled Output in .txt Format
 
-<img src="Documentation/txtImage.png" alt=".txt Output" align="left" height="712" width="354" ></a> 
+<img src="Documentation/txtImage.png" alt=".txt Output Schedule" align="left" height="712" width="354" ></a> 
+
+<img src="Documentation/tasksImage.png" alt=".txt Output Tasks" align="left" height="447" width="149" ></a> 
 
 
