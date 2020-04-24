@@ -34,7 +34,7 @@ Therefore, to build this program either clone or download this repository and se
 ```
 src/sample/Main.java
 ```
-A virtual environment may need to be created for all of the libraries and imports that are required.
+A virtual environment may need to be created for all of the libraries and imports that are required. Additionally, the output for 5,000 jobs have been added to this repository with FCFS allocating 5 VMs and BF allocating 4 VMs so that the output can be viewed in-case building the software is troublesome.
 
 
 ## View
