@@ -70,6 +70,11 @@ button was implemented so that the files can be removed once you're finished cre
  <br />
  <br />
  <br />
+ 
+ ### Working Demo
+ 
+ <img src="Documentation/program.gif" width="802" height="508" />
+ 
 
 ### Scheduled Output in .txt Format
 
