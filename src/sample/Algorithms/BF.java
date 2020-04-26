@@ -69,6 +69,7 @@ public class BF {
 
                 wattageSchedule.add(total + "=" + taskArrivalTime);
 
+                // Logic for progress bar and indicator
                 if (task.getTaskNo() > 1) {
                     double size = ((double) task.getTaskNo()) / data.size();
 
